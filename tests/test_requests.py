@@ -1,5 +1,5 @@
 from httpx import AsyncClient
-import pytest
+
 
 # валидные шаблоны
 form_1_1 = {"birthday": "1997-09-10",
@@ -27,6 +27,9 @@ form_1_5 = {"email": "testuser@mail.com",
             "text": "здесь просто текст",
             "birthday": "10.09.1997",
             "notification": "text uvedomleniya"}
+
+form_1_6 = {"field_1": "1997-09-10",           # такого поля в полях форм шаблонов нет
+            "notification": "какой-то текст"}  # поле и тип присутствуют в форме
 
 # невалидные шаблоны
 form_0_1 = {"nonexisting_field": "1997-09-10",  # такого поля нет
@@ -94,6 +97,13 @@ async def test_form_1_5(test_client: AsyncClient):
                     "Date Form",
                     "Text Form"
                     ]
+
+async def test_form_1_6(test_client: AsyncClient):
+    response = await test_client.post("/get_form",
+                                      params=form_1_6)
+    assert response.status_code == 200
+    data = response.json()
+    assert data == ["Text Form"]
 
 async def test_form_0_1(test_client: AsyncClient):
     response = await test_client.post("/get_form",
