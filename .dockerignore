@@ -2,3 +2,4 @@
 .venv
 .env
 .env.docker.example
+.env.example
