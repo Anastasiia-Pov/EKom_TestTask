@@ -1,9 +1,8 @@
 import pytest
-from main import app
-from beanie import init_beanie
+from src.main import app
 from asgi_lifespan import LifespanManager
 from httpx import AsyncClient, ASGITransport
-from config import MONGO_DB, MONGO_HOST, MONGO_PORT
+from src.config import MONGO_HOST, MONGO_PORT
 
 
 DATABASE_URL = f"mongodb://{MONGO_HOST}:{MONGO_PORT}"
