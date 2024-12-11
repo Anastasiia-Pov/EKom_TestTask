@@ -1,9 +1,9 @@
 from beanie import init_beanie
 from motor.motor_asyncio import AsyncIOMotorClient
 
-from config import MONGO_HOST, MONGO_PORT, MONGO_DB
-from db_models.form_model import FormTemplates
-from forms_templates.start_up_templates import FORMS_TEMPLATES
+from src.config import MONGO_HOST, MONGO_PORT, MONGO_DB
+from src.db_models.form_model import FormTemplates
+from src.forms_templates.start_up_templates import FORMS_TEMPLATES
 
 
 DATABASE_URL = f"mongodb://{MONGO_HOST}:{MONGO_PORT}"
