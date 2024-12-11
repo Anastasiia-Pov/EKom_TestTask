@@ -1,6 +1,6 @@
 from fastapi import APIRouter, status, Request
-from db_models.validators import ValidateForm
-from db_models.form_model import FormTemplates
+from src.db_models.validators import ValidateForm
+from src.db_models.form_model import FormTemplates
 
 
 form_router = APIRouter(prefix="",
