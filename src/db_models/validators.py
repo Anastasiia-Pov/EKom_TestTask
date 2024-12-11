@@ -1,4 +1,5 @@
 import re
+from datetime import datetime
 
 
 class ValidateForm:
@@ -17,7 +18,16 @@ class ValidateForm:
 
     @staticmethod
     def validate_date(date: str):
-        if re.fullmatch(r"(\d{2}\.\d{2}\.\d{4}|\d{4}-\d{2}-\d{2})", date):
+        date_formats = ["%Y-%m-%d",
+                        "%d.%m.%Y"]
+        result = []
+        for i in date_formats:
+            try:
+                if datetime.strptime(date, i):
+                    result.append(True)
+            except:
+                result.append(False)
+        if any(result):
             return "date", date
         raise ValueError("Неправильно указана дата")
 
