@@ -33,17 +33,23 @@ class ValidateForm:
 
 
     def main_validator(self, incoming_data: dict):
+        validators = [
+            self.validate_number,
+            self.validate_email,
+            self.validate_date
+        ]
+
         validated_types = {}
         for key, value in incoming_data.items():
-            try:
-                type, valid_value = self.validate_number(value)
-            except ValueError:
+            for validator in validators:
                 try:
-                    type, valid_value = self.validate_email(value)
+                    type_, valid_value = validator(value)
+                    break
                 except ValueError:
-                    try:
-                        type, valid_value = self.validate_date(value)
-                    except ValueError:
-                        type, valid_value = "text", value
-            validated_types[key] = {'type': type, 'incoming_value': valid_value}
+                    continue
+            else:
+                type_, valid_value = "text", value
+
+            validated_types[key] = {'type': type_, 'incoming_value': valid_value}
+
         return validated_types
